@@ -11,6 +11,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
     "astro": "^5.17.1",
     "astro-seo": "^1.1.0"
   },

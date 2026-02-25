@@ -1,9 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import type { MarkdownModule } from '../types/content';
+import { getStats, formatNumber } from '../utils/gh-stats';
+
+const statsData = await getStats();
 
 export function getStaticPaths() {
-  const modules = import.meta.glob<MarkdownModule>('../data/**/*.md', {
+  const modules = import.meta.glob<MarkdownModule>('../data/**/*.{md,mdx}', {
     eager: true,
   });
 
@@ -32,5 +35,8 @@ const { frontmatter, Content, lang } = Astro.props;
   ogDescription={frontmatter.ogDescription}
   lang={lang}
 >
-  <Content />
+  <Content
+    stars={statsData ? formatNumber(statsData.stars) : '…'}
+    stargazersUrl={`https://github.com/${import.meta.env.GITHUB_REPO || 'test'}/stargazers`}
+  />
 </Layout>

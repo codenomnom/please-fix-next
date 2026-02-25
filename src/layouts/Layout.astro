@@ -42,12 +42,13 @@ const { title, description, ogTitle, ogDescription, lang = 'en' } = Astro.props;
   <body>
     <main>
       <article class="hero">
-        <h1 set:html={formatTitle(title)}></h1>
+        <h1 set:html={formatTitle(title)} />
         <div class="meta">
-          &ndash; An open letter to the Next.js community and its maintainers, Feb '26
+          &ndash; An open letter to the Next.js community and its maintainers,
+          Feb '26
         </div>
       </article>
-      <hr>
+      <hr />
       <section class="letter">
         <slot />
       </section>
