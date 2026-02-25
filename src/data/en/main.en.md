@@ -1,8 +1,8 @@
 ---
 title: 'Please, fix Next.js'
 description: 'description'
-ogTitle: "og-title"
-ogDescription: "og-description"
+ogTitle: 'og-title'
+ogDescription: 'og-description'
 lang: en
 ---
 
