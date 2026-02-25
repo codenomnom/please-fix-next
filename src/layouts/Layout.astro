@@ -2,6 +2,7 @@
 import { SEO } from 'astro-seo';
 import ThemeSelect from '../components/ThemeSelect.astro';
 import ThemeManager from '../components/ThemeManager.astro';
+import LanguageSelect from '../components/LanguageSelect.astro';
 
 interface Props {
   title: string;
@@ -9,13 +10,14 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   lang?: string;
+  langs?: string[];
 }
 
 function formatTitle(title: string, format = '<em>$1</em>') {
   return title.replace(/_([^_]+)_/g, format);
 }
 
-const { title, description, ogTitle, ogDescription, lang = 'en' } = Astro.props;
+const { title, description, ogTitle, ogDescription, lang = 'en', langs } = Astro.props;
 ---
 
 <!doctype html>
@@ -48,6 +50,7 @@ const { title, description, ogTitle, ogDescription, lang = 'en' } = Astro.props;
   <body>
     <main>
       <div class="toolbar">
+        <LanguageSelect lang={lang} langs={langs} />
         <ThemeSelect />
       </div>
       <article class="hero">
@@ -116,6 +119,10 @@ const { title, description, ogTitle, ogDescription, lang = 'en' } = Astro.props;
     top: 1rem;
     right: 1rem;
     color: var(--color-text);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.8rem;
 
     button {
       all: unset;

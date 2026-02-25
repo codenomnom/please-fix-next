@@ -1,0 +1,74 @@
+---
+interface Props {
+  lang?: string;
+  langs?: string[];
+}
+const { lang = 'en', langs = ['en'] } = Astro.props;
+const repoUrl = `https://github.com/${import.meta.env.GITHUB_REPO}#translations`;
+---
+
+<div class="lang-wrap">
+  <select class="lang-select" id="langSelect" data-current={lang} data-repo-url={repoUrl}>
+    {
+      langs.map((l) => (
+        <option value={l} selected={lang === l}>
+          {l.toUpperCase()}
+        </option>
+      ))
+    }
+    <option disabled>&mdash;</option>
+    <option value="translate">✍️</option>
+  </select>
+  <!-- <span class="lang-arrow">▾</span> -->
+</div>
+
+<script is:inline>
+  const select = document.getElementById('langSelect');
+  select.addEventListener('change', function () {
+    const value = this.value;
+    if (value === 'translate') {
+      window.open(this.dataset.repoUrl, '_blank');
+      this.value = this.dataset.current;
+      return;
+    }
+    window.location.href = value === 'en' ? '/' : '/' + value;
+  });
+</script>
+
+<style>
+  .lang-wrap {
+    position: relative;
+  }
+
+  .lang-select {
+    appearance: none;
+    background: none;
+    border: 1px solid var(--color-faint);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.75rem;
+    color: var(--color-fain);
+    padding: 0.3rem 1.6rem 0.3rem 0.6rem;
+    cursor: pointer;
+    transition:
+      color 0.15s,
+      border-color 0.15s;
+    background-image: none;
+    padding-inline-end: 8px;
+  }
+
+  .lang-select:hover {
+    color: var(--color-text);
+    border-color: var(--color-secondary);
+  }
+
+  .lang-arrow {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 0.55rem;
+    color: var(--muted);
+  }
+</style>

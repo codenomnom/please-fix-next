@@ -6,13 +6,17 @@ import { getStats, formatNumber } from '../utils/gh-stats';
 const statsData = await getStats();
 
 export function getStaticPaths() {
+  const pathToLang = (path: string) =>
+    path.match(/\/data\/([^/]+)\//)?.[1] ?? 'en';
+
   const modules = import.meta.glob<MarkdownModule>('../data/**/*.{md,mdx}', {
     eager: true,
   });
 
+  const langs = Object.keys(modules).map(pathToLang);
+
   return Object.entries(modules).map(([path, mod]) => {
-    const match = path.match(/\/data\/([^/]+)\//); // ../data/en/main.en.md → 'en'
-    const lang = match ? match[1] : 'en';
+    const lang = pathToLang(path);
 
     return {
       params: { lang: lang === 'en' ? undefined : lang }, // english is default, served at /
@@ -20,12 +24,13 @@ export function getStaticPaths() {
         frontmatter: mod.frontmatter,
         Content: mod.default,
         lang,
+        langs,
       },
     };
   });
 }
 
-const { frontmatter, Content, lang } = Astro.props;
+const { frontmatter, Content, lang, langs } = Astro.props;
 ---
 
 <Layout
@@ -34,9 +39,10 @@ const { frontmatter, Content, lang } = Astro.props;
   ogTitle={frontmatter.ogTitle}
   ogDescription={frontmatter.ogDescription}
   lang={lang}
+  langs={langs}
 >
   <Content
     stars={statsData ? formatNumber(statsData.stars) : '…'}
-    stargazersUrl={`https://github.com/${import.meta.env.GITHUB_REPO || 'test'}/stargazers`}
+    stargazersUrl={`https://github.com/${import.meta.env.GITHUB_REPO}/stargazers`}
   />
 </Layout>
