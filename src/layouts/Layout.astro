@@ -36,15 +36,78 @@ const { title, description, ogTitle, ogDescription, lang = 'en' } = Astro.props;
     />
   </head>
   <body>
-    <slot />
+    <main>
+      <slot />
+    </main>
   </body>
 </html>
 
-<style>
+<style is:global>
   html,
   body {
     margin: 0;
     width: 100%;
     height: 100%;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #111111;
+    --muted: #999999;
+    --faint: #ebebeb;
+    --accent: #c0392b;
+  }
+
+  [data-theme='dark'] {
+    --bg: #111111;
+    --ink: #eeeeee;
+    --muted: #666666;
+    --faint: #222222;
+    --accent: #e05040;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif;
+    line-height: 1.7;
+    font-size: 1.125rem; /* 18px */
+    -webkit-font-smoothing: antialiased;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  main {
+    max-width: 70ch;
+    width: 100%;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    margin-bottom: 2rem;
+    em {
+      color: var(--accent);
+    }
+  }
+
+  p {
+    margin-bottom: 1.5rem;
   }
 </style>
