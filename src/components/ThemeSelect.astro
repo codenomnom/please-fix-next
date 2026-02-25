@@ -1,0 +1,22 @@
+<theme-selector></theme-selector>
+<script is:inline>
+  if (!customElements.get('theme-selector')) {
+    customElements.define(
+      'theme-selector',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.innerHTML = `<button id="theme-toggle" aria-label="Change color scheme">◐</button>`;
+          this.querySelector('button').onclick = () => theme.setTheme(theme.getTheme() === 'dark' ? 'light' : 'dark');
+          this.setAttribute('aria-label', 'Select Theme');
+          this.updateSelectedTheme();
+
+          document.addEventListener('theme-changed', (event) => {
+            this.updateSelectedTheme(event.detail.theme);
+          });
+        }
+
+        updateSelectedTheme(newTheme = theme.getTheme()) {}
+      }
+    );
+  }
+</script>
