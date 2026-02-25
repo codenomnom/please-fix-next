@@ -13,8 +13,8 @@ But it became something we dread opening on a Monday morning.
 
 Not because we're bad developers. Because somewhere between versions, the joy
 left. Simple things became puzzles. Deployments became rituals. The _"magic"_ that
-used to save us time became a proprietary, hidden layer, that we have to fight against.
-It _does_ feels like a dark magic now.
+used to save us time became a proprietary, hidden layer that we have to fight against.
+It feels like dark magic now — and not the good kind.
 
 We found tricks, wrote workarounds, we patched the leaks, we moved on.
 
