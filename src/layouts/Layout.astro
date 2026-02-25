@@ -9,6 +9,10 @@ interface Props {
   lang?: string;
 }
 
+function formatTitle(title: string, format = '<em>$1</em>') {
+  return title.replace(/_([^_]+)_/g, format);
+}
+
 const { title, description, ogTitle, ogDescription, lang = 'en' } = Astro.props;
 ---
 
@@ -21,7 +25,7 @@ const { title, description, ogTitle, ogDescription, lang = 'en' } = Astro.props;
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <SEO
-      title={title}
+      title={formatTitle(title + ' - ' + description, '$1')}
       description={description}
       openGraph={{
         basic: {
@@ -37,7 +41,16 @@ const { title, description, ogTitle, ogDescription, lang = 'en' } = Astro.props;
   </head>
   <body>
     <main>
-      <slot />
+      <article class="hero">
+        <h1 set:html={formatTitle(title)}></h1>
+        <div class="meta">
+          &ndash; An open letter to the Next.js community and its maintainers, Feb '26
+        </div>
+      </article>
+      <hr>
+      <section class="letter">
+        <slot />
+      </section>
     </main>
   </body>
 </html>
@@ -58,32 +71,28 @@ const { title, description, ogTitle, ogDescription, lang = 'en' } = Astro.props;
   }
 
   :root {
-    --bg: #ffffff;
-    --ink: #111111;
-    --muted: #999999;
-    --faint: #ebebeb;
-    --accent: #c0392b;
+    --color-bg: #fff;
+    --color-text: #171717;
+    --color-secondary: #999999;
+    --color-accent: #e81c4f;
+    --color-faint: #ebebeb;
   }
 
   [data-theme='dark'] {
-    --bg: #111111;
-    --ink: #eeeeee;
-    --muted: #666666;
-    --faint: #222222;
-    --accent: #e05040;
+    --color-bg: #111111;
   }
 
   body {
-    background-color: var(--bg-color);
-    color: var(--text-primary);
+    background-color: var(--color-bg);
+    color: var(--color-text);
     font-family:
       system-ui,
+      'Segoe UI',
+      Roboto,
       -apple-system,
       BlinkMacSystemFont,
-      'Segoe UI',
       sans-serif;
     line-height: 1.7;
-    font-size: 1.125rem; /* 18px */
     -webkit-font-smoothing: antialiased;
     transition:
       background-color 0.3s ease,
@@ -91,23 +100,49 @@ const { title, description, ogTitle, ogDescription, lang = 'en' } = Astro.props;
   }
 
   main {
-    max-width: 70ch;
+    max-width: 69ch;
     width: 100%;
     margin: 0 auto;
-    padding: 3rem 1.5rem;
+    padding: 2rem 1.5rem;
   }
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 3.6rem;
     font-weight: 800;
     letter-spacing: -0.05em;
-    margin-bottom: 2rem;
+
     em {
-      color: var(--accent);
+      color: var(--color-accent);
     }
   }
 
-  p {
-    margin-bottom: 1.5rem;
+  .meta {
+    color: var(--color-secondary);
+    font-size: 13px;
+    margin-bottom: 2rem;
+  }
+
+  hr {
+    background-color: var(--color-faint);
+    margin: 1rem 0;
+    border: 0;
+    height: 1px;
+  }
+
+  .letter {
+    p {
+      margin-bottom: 1.3rem;
+    }
+
+    a {
+      color: var(--color-text);
+      text-decoration: underline;
+      text-decoration-color: var(--color-accent);
+      text-underline-offset: 3px;
+
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
   }
 </style>
