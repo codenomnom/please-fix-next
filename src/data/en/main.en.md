@@ -18,8 +18,8 @@ It feels like dark magic now — and not the good kind.
 
 We found tricks, wrote workarounds, we patched the leaks, we moved on.
 
-Cloudflare [rebuilt the core Next.js experience in one week](https://blog.cloudflare.com/vinext/).
-A tiny team. Vite underneath. 4× faster builds. 57% smaller bundles. Runs anywhere.
+Cloudflare <a href="https://blog.cloudflare.com/vinext/" target="_blank" rel="noopener noreferrer">rebuilt
+the core Next.js experience in one week</a>. A tiny team. Vite underneath. 4× faster builds. 57% smaller bundles. Runs anywhere.
 
 **Complexity isn't a technical necessity anymore. It's now a choice.**
 
