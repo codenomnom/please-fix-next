@@ -27,6 +27,10 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v6
+      - name: Setup Node
+        uses: actions/setup-node@v4
+      - name: Install dependencies # bypasses Astro's built-in install step, which somehow fails with optional deps
+        run: npm install --include=optional
       - name: Install, build, and upload your site
         uses: withastro/action@v5
         # with:
