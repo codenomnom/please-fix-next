@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import type { MarkdownModule } from '../types/content';
+
+export function getStaticPaths() {
+  const modules = import.meta.glob<MarkdownModule>('../data/**/*.md', {
+    eager: true,
+  });
+
+  return Object.entries(modules).map(([path, mod]) => {
+    const match = path.match(/\/data\/([^/]+)\//); // ../data/en/main.en.md → 'en'
+    const lang = match ? match[1] : 'en';
+
+    return {
+      params: { lang: lang === 'en' ? undefined : lang }, // english is default, served at /
+      props: {
+        frontmatter: mod.frontmatter,
+        Content: mod.default,
+        lang,
+      },
+    };
+  });
+}
+
+const { frontmatter, Content, lang } = Astro.props;
+---
+
+<Layout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  ogTitle={frontmatter.ogTitle}
+  ogDescription={frontmatter.ogDescription}
+  lang={lang}
+>
+  <main>
+    <Content />
+  </main>
+</Layout>
