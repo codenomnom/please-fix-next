@@ -79,6 +79,22 @@ const pubDate = new Intl.DateTimeFormat(lang, {
       <section class="letter">
         <slot />
       </section>
+      <section class="cta">
+        <a
+          href="https://github.com/codenomnom/please-fix-next"
+          class="btn-primary"
+          target="_blank"
+        >
+          ★ &nbsp;Star to Sign
+        </a>
+        <a
+          href="https://github.com/codenomnom/please-fix-next/discussions"
+          class="btn-primary"
+          target="_blank"
+        >
+          Join Discussions →
+        </a>
+      </section>
     </main>
   </body>
 </html>
@@ -208,6 +224,31 @@ const pubDate = new Intl.DateTimeFormat(lang, {
       &:hover {
         color: var(--color-accent);
       }
+    }
+  }
+
+  .cta {
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 12px;
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--color-text);
+      color: var(--color-bg);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 24px;
+      border-radius: 3px;
+      align-self: flex-start;
+      transition: opacity 0.15s;
+    }
+    .btn-primary:hover {
+      opacity: 0.75;
     }
   }
 </style>
