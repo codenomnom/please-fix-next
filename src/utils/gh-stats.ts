@@ -46,29 +46,28 @@ async function fetchStars(repo: string, token?: string): Promise<number> {
   return data.stargazers_count;
 }
 
-export async function getStats(): Promise<RepoStats | null> {
+export async function getStats(): Promise<RepoStats> {
   const mock = (import.meta.env.GITHUB_MOCK as string | undefined)?.toLowerCase();
   const isMock = mock === 'true' || mock === '1';
-  let stars = 0;
+  const result = { stars: 0, isMock };
 
   if (isMock) {
-    console.info(`[gh-stats] mock mode — returning ${stars} stars`);
-    stars = randomStars();
+    result.stars = randomStars();
+    console.info(`[gh-stats] mock mode — returning ${result.stars} stars`);
   } else {
     const repo = import.meta.env.GITHUB_REPO as string | undefined;
     const token = import.meta.env.GITHUB_TOKEN as string | undefined;
     if (!repo) {
       console.warn('[gh-stats] GITHUB_REPO is not set — skipping star count.');
-      return null;
+      return result;
     }
 
     try {
-      stars = await fetchStars(repo, token);
+      result.stars = await fetchStars(repo, token);
     } catch (err) {
       console.warn('[gh-stats]', err);
-      return null;
     }
   }
 
-  return { stars, isMock };
+  return result;
 }

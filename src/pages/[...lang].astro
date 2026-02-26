@@ -1,23 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import type { MarkdownModule } from '../types/content';
 import { getStats, formatNumber } from '../utils/gh-stats';
+import { getAvailableLanguages, getAllContentFiles } from '../utils/i18n.utils';
 
 const statsData = await getStats();
 
 export function getStaticPaths() {
-  const pathToLang = (path: string) =>
-    path.match(/\/data\/([^/]+)\//)?.[1] ?? 'en';
+  const langs = getAvailableLanguages();
+  const modules = getAllContentFiles();
 
-  const modules = import.meta.glob<MarkdownModule>('../data/**/*.{md,mdx}', {
-    eager: true,
-  });
-
-  const langs = Object.keys(modules).map(pathToLang);
-
-  return Object.entries(modules).map(([path, mod]) => {
-    const lang = pathToLang(path);
-
+  return modules.map(({ lang, mod }) => {
     return {
       params: { lang: lang === 'en' ? undefined : lang }, // english is default, served at /
       props: {
