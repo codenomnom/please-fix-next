@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":separateMajorReleases"],
+  "dependencyDashboard": true,
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^@types/"],
+      "groupName": "ts types",
+      "automerge": false
+    },
+    {
+      "matchPackageNames": ["typescript"],
+      "groupName": "typescript ecosystem"
+    }
+  ],
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump"
+}
