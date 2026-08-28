@@ -13,7 +13,7 @@
   "dependencies": {
     "@astrojs/mdx": "^6.0.3",
     "astro": "^6.4.8",
-    "astro-seo": "^1.1.0"
+    "astro-seo": "^1.2.0"
   },
   "devDependencies": {
     "prettier": "3.9.6",
