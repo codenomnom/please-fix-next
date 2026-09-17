@@ -16,7 +16,7 @@
     "astro-seo": "^1.2.0"
   },
   "devDependencies": {
-    "prettier": "3.9.6",
+    "prettier": "3.9.8",
     "prettier-plugin-astro": "0.14.1"
   },
   "optionalDependencies": {
