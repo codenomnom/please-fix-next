@@ -20,6 +20,6 @@
     "prettier-plugin-astro": "1.1.0"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.64.0"
+    "@rollup/rollup-linux-x64-gnu": "^4.64.5"
   }
 }
